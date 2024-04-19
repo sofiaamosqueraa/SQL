@@ -14,6 +14,7 @@ INSERT INTO Alunos ( Nome, Idade, Classe, Nota) VALUES
 ( 'Leonardo', 17, 10, 65.4),
 ('Maelson', 16, 10, 65.4);
 
+
 -- Selecionar todos os alunos
 SELECT * FROM Alunos;
 
@@ -28,3 +29,14 @@ SELECT AVG(Nota) AS MediaNotas FROM Alunos;
 
 -- Selecionar o nome e a nota do aluno com a nota mais alta
 SELECT Nome, Nota FROM Alunos WHERE Nota = (SELECT MAX(Nota) FROM Alunos);
+
+-- Atualizar a nota do aluno com o ID igual a 3 para 90
+UPDATE Alunos SET Nota = 90 WHERE ID = 3;
+
+-- Excluir todos os alunos com idade inferior a 12 anos
+DELETE FROM Alunos WHERE Idade < 12;
+
+-- Selecionar o nome e a idade do aluno mais novo na tabela
+SELECT Nome, Idade FROM Alunos ORDER BY Idade ASC LIMIT 1;
+
+
