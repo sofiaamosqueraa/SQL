@@ -2,12 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Escola DB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Alunos</title>
 </head>
 <body>
-    <h1>Alunos</h1>
-    <ul id="lista-alunos"></ul>
+    <h1>Lista de Alunos</h1>
 
-    <script src="app.js"></script>
+    <!-- Campo de busca -->
+    <input type="text" id="filtro-nome" placeholder="Digite o nome do aluno" oninput="buscarAlunos()">
+    <ul id="alunos-lista"></ul>
+
+    <script>
+        let alunosCache = [];
+
+        function mostrarAlunos(alunos) {
+            const listaAlunos = document.getElementById('alunos-lista');
+            listaAlunos.innerHTML = ''; // Limpa a lista atual antes de adicionar novos itens
+            alunos.forEach(aluno => {
+                const itemLista = document.createElement('li');
+                itemLista.textContent = `Nome: ${aluno.Nome}, Idade: ${aluno.Idade}, Classe: ${aluno.Classe}, Nota: ${aluno.Nota}`;
+                  listaAlunos.appendChild(itemLista);
+            });
+        }
+
+        function buscarAlunos() {
+            const filtroNome = document.getElementById('filtro-nome').value.toLowerCase();
+            const alunosFiltrados = alunosCache.filter(aluno => aluno.Nome.toLowerCase().includes(filtroNome));
+            mostrarAlunos(alunosFiltrados);
+        }
+
+        // Chamada AJAX para buscar os dados dos alunos
+        fetch('/dados')
+            .then(response => response.json())
+            .then(data => {
+                alunosCache = data; // Armazena os dados na cache
+                mostrarAlunos(data); // Mostra todos os alunos inicialmente
+            })
+            .catch(error => console.error('Erro ao buscar dados:', error));
+    </script>
 </body>
 </html>
