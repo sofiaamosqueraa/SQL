@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "alunos.db",
+            "database": "${workspaceFolder:SQL}/alunos.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
